@@ -1,23 +1,24 @@
 clear all;
 close all;
-load('data4.mat');
+load('data2.mat');
 
 %% regulardata with knn
 correct_rate = [];
-for i=19
+for i = 1:2:81
     Mdlknn = fitcknn(train_data,train_label,'NumNeighbors',i);
     classes = predict(Mdlknn,test_data);
     cp = classperf(test_label,classes);
     correct_rate = [correct_rate,cp.CorrectRate];
 end
 
-x = 19;
+x = 1:2:81;
 plot(x,correct_rate,'b-o');
+xlabel('number of K');
+ylabel('Accuracy');
+title('Accuracy for various K');
+legend('Correct rates');
+
 correct_rate
-% cp.CorrectRate = 0.6852
-
-%% zscore data
-
 
 %{
 load('data_zscore.mat');
